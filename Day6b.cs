@@ -49,6 +49,6 @@ internal class Day6b : DayBase
 			result *= nbWins;
 		}
 
-		Console.WriteLine($"Day 6a: {result}");
+		Console.WriteLine($"Day 6b: {result}");
 	}
 }
