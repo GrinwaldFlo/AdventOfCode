@@ -1,10 +1,4 @@
-﻿
-
-
-
-using System.Collections.Immutable;
-
-namespace AdventOfCode2023;
+﻿namespace AdventOfCode2023;
 internal class Day7a : DayBase
 {
 	internal class Card

@@ -1,57 +1,25 @@
-﻿
-
-
-namespace AdventOfCode2023;
+﻿namespace AdventOfCode2023;
 internal class Day5b : DayBase
 {
-	internal class Map
-	{
-		internal class MapRange
-		{
-			internal long _from;
-			internal long _to;
-			internal long _range;
-
-			internal MapRange(string data)
-			{
-				string[] tmp = data.Split(' ');
-				_from = long.Parse(tmp[1]);
-				_to = long.Parse(tmp[0]);
-				_range = long.Parse(tmp[2]);
-			}
-
-			internal long Convert(long v)
-			{
-				return v >= _from && v < _from + _range ? _to + (v - _from) : v;
-			}
-		}
-
-		internal List<MapRange> _ranges = [];
-
-		internal string _from;
-		internal string _to;
-
-		internal Map(string[] data)
-		{
-			string[] tmp = data[0].Split(' ', '-');
-			_from = tmp[0];
-			_to = tmp[2];
-
-			_ranges = [.. data.Skip(1).Select(x => new MapRange(x)).OrderBy(x => x._from)];
-		}
-
-		internal long Convert(long v)
-		{
-			var found = _ranges.Where(x => x._from <= v).LastOrDefault();
-			return found == null ? v : found.Convert(v);
-		}
-	}
+	private readonly List<Map> _maps = [];
 
 	internal Day5b()
 	{
 		_name = GetType().Name;
 	}
-	List<Map> maps = [];
+
+	internal long Convert(long v)
+	{
+		var map = _maps.FirstOrDefault(x => x._from == "seed");
+		long seedNew = v;
+		while (map != null)
+		{
+			seedNew = map.Convert(seedNew);
+			//	Console.WriteLine($"{map._from} -> {map._to} : {seed} -> {seedNew}");
+			map = _maps.FirstOrDefault(x => x._from == map._to);
+		}
+		return seedNew;
+	}
 
 	internal override void Run()
 	{
@@ -68,7 +36,7 @@ internal class Day5b : DayBase
 			{
 				if (buffer.Count != 0)
 				{
-					maps.Add(new([.. buffer]));
+					_maps.Add(new([.. buffer]));
 				}
 				buffer.Clear();
 				data.RemoveAt(0);
@@ -79,7 +47,7 @@ internal class Day5b : DayBase
 				data.RemoveAt(0);
 			}
 		}
-		
+
 		long minSeed = 0;
 		long minLocation = long.MaxValue;
 
@@ -89,7 +57,7 @@ internal class Day5b : DayBase
 			{
 				long seed = tmpSeeds[i] + j;
 
-				var seedNew = Convert(seed);
+				long seedNew = Convert(seed);
 				//Console.WriteLine($" ");
 				if (seedNew < minLocation)
 				{
@@ -104,18 +72,47 @@ internal class Day5b : DayBase
 		Console.WriteLine($"Day 5a: seed:{minSeed} at location {minLocation}");
 	}
 
-	internal long Convert(long v)
+	internal class Map
 	{
-		var map = maps.FirstOrDefault(x => x._from == "seed");
-		long seedNew = v;
-		while (map != null)
-		{
-			seedNew = map.Convert(seedNew);
-			//	Console.WriteLine($"{map._from} -> {map._to} : {seed} -> {seedNew}");
-			map = maps.FirstOrDefault(x => x._from == map._to);
-		}
-		return seedNew;
-	}
+		internal string _from;
 
+		internal List<MapRange> _ranges = [];
+
+		internal string _to;
+
+		internal Map(string[] data)
+		{
+			string[] tmp = data[0].Split(' ', '-');
+			_from = tmp[0];
+			_to = tmp[2];
+
+			_ranges = [.. data.Skip(1).Select(x => new MapRange(x)).OrderBy(x => x._from)];
+		}
+
+		internal long Convert(long v)
+		{
+			var found = _ranges.Where(x => x._from <= v).LastOrDefault();
+			return found == null ? v : found.Convert(v);
+		}
+
+		internal class MapRange
+		{
+			internal long _from;
+			internal long _range;
+			internal long _to;
+			internal MapRange(string data)
+			{
+				string[] tmp = data.Split(' ');
+				_from = long.Parse(tmp[1]);
+				_to = long.Parse(tmp[0]);
+				_range = long.Parse(tmp[2]);
+			}
+
+			internal long Convert(long v)
+			{
+				return v >= _from && v < _from + _range ? _to + (v - _from) : v;
+			}
+		}
+	}
 }
 //Day 5a: seed:385349830 at location 84931146 

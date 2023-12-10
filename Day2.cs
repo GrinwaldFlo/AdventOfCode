@@ -74,7 +74,7 @@ internal partial class Day2 : DayBase
 		}
 	}
 
-	private readonly string[] n = new[] { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
+	private readonly string[] _n = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
 	internal Day2()
 	{
 		_name = GetType().Name;

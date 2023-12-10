@@ -1,7 +1,4 @@
-﻿
-
-
-namespace AdventOfCode2023;
+﻿namespace AdventOfCode2023;
 internal class Day5a : DayBase
 {
 	internal class Map
@@ -82,22 +79,22 @@ internal class Day5a : DayBase
 		var map = maps.FirstOrDefault(x => x._from == "seed");
 		long minSeed = 0;
 		long minLocation = long.MaxValue;
-		foreach (var seed in seeds) 
+		foreach (long seed in seeds)
 		{
 			long seedNew = seed;
 			while (map != null)
 			{
 				seedNew = map.Convert(seedNew);
 				//Console.WriteLine($"{map._from} -> {map._to} : {seed} -> {seedNew}");
-				map = maps.FirstOrDefault(x => x._from == map._to);				
+				map = maps.FirstOrDefault(x => x._from == map._to);
 			}
 
-			if(seedNew < minLocation)
+			if (seedNew < minLocation)
 			{
 				minSeed = seed;
 				minLocation = seedNew;
 			}
-			map = maps.FirstOrDefault(x => x._from == "seed");			
+			map = maps.FirstOrDefault(x => x._from == "seed");
 		}
 
 		Console.WriteLine($"Day 5a: seed:{minSeed} at location {minLocation}");

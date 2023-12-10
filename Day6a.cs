@@ -1,7 +1,4 @@
-﻿
-
-
-namespace AdventOfCode2023;
+﻿namespace AdventOfCode2023;
 internal class Day6a : DayBase
 {
 	internal class Race
@@ -22,7 +19,7 @@ internal class Day6a : DayBase
 
 		private int CalcDist(int pushTime)
 		{
-			return (_time - pushTime) * (pushTime);
+			return (_time - pushTime) * pushTime;
 		}
 	}
 	internal Day6a()

@@ -1,8 +1,8 @@
 ﻿namespace AdventOfCode2023;
 internal class Day3b : DayBase
 {
-	private readonly List<int> r = [];
-	private readonly List<List<int>> s = [];
+	private readonly List<int> _r = [];
+	private readonly List<List<int>> _s = [];
 
 	internal Day3b()
 	{
@@ -13,8 +13,8 @@ internal class Day3b : DayBase
 	{
 		char[][] data = GetData().Select(x => x.ToCharArray()).ToArray();
 		int[][] mask = new int[data.Length][];
-		r.Add(0);
-		s.Add([]);
+		_r.Add(0);
+		_s.Add([]);
 
 		for (int i = 0; i < data.Length; i++)
 		{
@@ -51,7 +51,7 @@ internal class Day3b : DayBase
 				{
 					if (cur > 0 && maskId > 0)
 					{
-						s[maskId].Add(cur);
+						_s[maskId].Add(cur);
 					}
 					cur = 0;
 					maskId = 0;
@@ -59,13 +59,13 @@ internal class Day3b : DayBase
 			}
 			if (cur > 0 && maskId > 0)
 			{
-				s[maskId].Add(cur);
+				_s[maskId].Add(cur);
 			}
 			cur = 0;
 			maskId = 0;
 		}
 
-		long sum = s.Where(x => x.Count == 2).Select(x => x[0] * x[1]).Sum();
+		long sum = _s.Where(x => x.Count == 2).Select(x => x[0] * x[1]).Sum();
 
 		Console.WriteLine($"Day3 sum:{sum}");
 	}
@@ -77,13 +77,13 @@ internal class Day3b : DayBase
 
 	private void SetMask(int[][] mask, int x, int y)
 	{
-		r.Add(0);
-		s.Add([]);
+		_r.Add(0);
+		_s.Add([]);
 		for (int i = x - 1; i < x + 2; i++)
 		{
 			for (int j = y - 1; j < y + 2; j++)
 			{
-				SetValue(mask, i, j, r.Count - 1);
+				SetValue(mask, i, j, _r.Count - 1);
 			}
 		}
 	}

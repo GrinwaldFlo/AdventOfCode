@@ -1,38 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace AdventOfCode2023;
-internal class Day4b : DayBase
+internal partial class Day4b : DayBase
 {
-	internal class Card
+	internal partial class Card
 	{
-		internal int Id;
-		internal List<int> Win = new();
-		internal List<int> Num = new();
+		internal int _id;
+		internal List<int> _win = [];
+		internal List<int> _num = [];
 
 		internal Card(string v)
 		{
-			Regex r = new Regex("Card (?<id>\\d+):(?<win> \\d+)+ \\|(?<num> \\d+)+");
+			var r = CardRegex();
 			var result = r.Match(v.Replace("  ", " ").Replace("  ", " "));
 			if (result.Success)
 			{
-				Id = int.Parse(result.Groups["id"].Value);
-				Win = result.Groups["win"].Captures.Select(x => int.Parse(x.Value)).ToList();
-				Num = result.Groups["num"].Captures.Select(x => int.Parse(x.Value)).ToList();
+				_id = int.Parse(result.Groups["id"].Value);
+				_win = result.Groups["win"].Captures.Select(x => int.Parse(x.Value)).ToList();
+				_num = result.Groups["num"].Captures.Select(x => int.Parse(x.Value)).ToList();
 			}
 		}
 
 		internal int CalcSum(Card[] cards)
 		{
-			int nbMatch = Num.Count(x => Win.Contains(x));
+			int nbMatch = _num.Count(x => _win.Contains(x));
 
-			var winCards = cards.Where(x => x.Id > Id && x.Id < Id + 1 + nbMatch);
+			var winCards = cards.Where(x => x._id > _id && x._id < _id + 1 + nbMatch);
 			return 1 + winCards.Sum(x => x.CalcSum(cards));
 		}
+
+		[GeneratedRegex("Card (?<id>\\d+):(?<win> \\d+)+ \\|(?<num> \\d+)+")]
+		private static partial Regex CardRegex();
 	}
 
 	internal Day4b()

@@ -1,10 +1,4 @@
-﻿
-
-
-
-using System.Collections.Immutable;
-
-namespace AdventOfCode2023;
+﻿namespace AdventOfCode2023;
 internal class Day7b : DayBase
 {
 	internal class Card
@@ -45,7 +39,7 @@ internal class Day7b : DayBase
 		internal int _jocker;
 		public Hand(string val)
 		{
-			
+
 			string[] tmp = val.Split(' ');
 			_strCards = tmp[0];
 			_cards = [.. tmp[0].Select(SignToVal)];
@@ -57,13 +51,12 @@ internal class Day7b : DayBase
 				for (int i = 1; i < 14; i++)
 				{
 					tmpValue = CalcValue(_cards.Select(x => x == 1 ? i : x).ToArray());
-					if(tmpValue > _value)
+					if (tmpValue > _value)
 					{
 						_jocker = i;
 						_value = tmpValue;
-					}						
+					}
 				}
-				
 			}
 			else
 			{
@@ -140,6 +133,6 @@ internal class Day7b : DayBase
 			}
 		}
 
-		Console.WriteLine($"Day 7a: {result}");
+		Console.WriteLine($"Day 7b: {result}");
 	}
 }

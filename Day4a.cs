@@ -1,40 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace AdventOfCode2023;
-internal class Day4a : DayBase
+internal partial class Day4a : DayBase
 {
-	internal class Card
+	internal partial class Card
 	{
-		internal int Id;
-		internal List<int> Win = new();
-		internal List<int> Num = new();
-		internal int Sum = 0;
+		internal int _id;
+		internal List<int> _win = [];
+		internal List<int> _num = [];
+		internal int _sum = 0;
 		internal Card(string v)
 		{
-			Regex r = new Regex("Card (?<id>\\d+):(?<win> \\d+)+ \\|(?<num> \\d+)+");
+			var r = CardRegex();
 			var result = r.Match(v.Replace("  ", " ").Replace("  ", " "));
 			if (result.Success)
 			{
-				Id = int.Parse(result.Groups["id"].Value);
-				Win = result.Groups["win"].Captures.Select(x => int.Parse(x.Value)).ToList();
-				Num = result.Groups["num"].Captures.Select(x => int.Parse(x.Value)).ToList();
+				_id = int.Parse(result.Groups["id"].Value);
+				_win = result.Groups["win"].Captures.Select(x => int.Parse(x.Value)).ToList();
+				_num = result.Groups["num"].Captures.Select(x => int.Parse(x.Value)).ToList();
 			}
 			CalcSum();
 		}
 
 		internal void CalcSum()
 		{
-			int nbMatch = Num.Where(x => Win.Contains(x)).Select(x => 1).Sum();
-			if (nbMatch <= 1)
-				Sum = nbMatch;
-			else
-				Sum = (int)Math.Pow(2, nbMatch - 1);
+			int nbMatch = _num.Where(x => _win.Contains(x)).Select(x => 1).Sum();
+			_sum = nbMatch <= 1 ? nbMatch : (int)Math.Pow(2, nbMatch - 1);
 		}
+
+		[GeneratedRegex("Card (?<id>\\d+):(?<win> \\d+)+ \\|(?<num> \\d+)+")]
+		private static partial Regex CardRegex();
 	}
 
 	internal Day4a()
@@ -48,6 +43,6 @@ internal class Day4a : DayBase
 
 		var cards = data.Select(x => new Card(x)).ToArray();
 
-		Console.WriteLine("Day 4a: " + cards.Sum(x => x.Sum));
+		Console.WriteLine("Day 4a: " + cards.Sum(x => x._sum));
 	}
 }

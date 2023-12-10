@@ -1,7 +1,7 @@
 ﻿namespace AdventOfCode2023;
 internal class Day1 : DayBase
 {
-	private readonly string[] n = new[] { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
+	private readonly string[] _n = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
 	internal Day1()
 	{
 		_name = GetType().Name;
@@ -20,9 +20,9 @@ internal class Day1 : DayBase
 		{
 			if (char.IsDigit(v[0]))
 				return v[0] - '0';
-			for (int j = 0; j < n.Length; j++)
+			for (int j = 0; j < _n.Length; j++)
 			{
-				if (v.StartsWith(n[j]))
+				if (v.StartsWith(_n[j]))
 					return j + 1;
 			}
 			v = v[1..];
@@ -37,9 +37,9 @@ internal class Day1 : DayBase
 		{
 			if (char.IsDigit(v[^1]))
 				return v[^1] - '0';
-			for (int j = 0; j < n.Length; j++)
+			for (int j = 0; j < _n.Length; j++)
 			{
-				if (v.EndsWith(n[j]))
+				if (v.EndsWith(_n[j]))
 					return j + 1;
 			}
 			v = v[..^1];
