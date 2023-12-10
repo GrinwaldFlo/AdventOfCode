@@ -1,8 +1,8 @@
 ﻿namespace AdventOfCode2023;
-internal class Day1 : DayBase
+internal class Day01 : DayBase
 {
 	private readonly string[] _n = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
-	internal Day1()
+	internal Day01()
 	{
 		_name = GetType().Name;
 	}

@@ -1,14 +1,14 @@
 ﻿using System.Text.RegularExpressions;
 
 namespace AdventOfCode2023;
-internal partial class Day4b : DayBase
+internal partial class Day04a : DayBase
 {
 	internal partial class Card
 	{
 		internal int _id;
 		internal List<int> _win = [];
 		internal List<int> _num = [];
-
+		internal int _sum = 0;
 		internal Card(string v)
 		{
 			var r = CardRegex();
@@ -19,23 +19,22 @@ internal partial class Day4b : DayBase
 				_win = result.Groups["win"].Captures.Select(x => int.Parse(x.Value)).ToList();
 				_num = result.Groups["num"].Captures.Select(x => int.Parse(x.Value)).ToList();
 			}
+			CalcSum();
 		}
 
-		internal int CalcSum(Card[] cards)
+		internal void CalcSum()
 		{
-			int nbMatch = _num.Count(x => _win.Contains(x));
-
-			var winCards = cards.Where(x => x._id > _id && x._id < _id + 1 + nbMatch);
-			return 1 + winCards.Sum(x => x.CalcSum(cards));
+			int nbMatch = _num.Where(x => _win.Contains(x)).Select(x => 1).Sum();
+			_sum = nbMatch <= 1 ? nbMatch : (int)Math.Pow(2, nbMatch - 1);
 		}
 
 		[GeneratedRegex("Card (?<id>\\d+):(?<win> \\d+)+ \\|(?<num> \\d+)+")]
 		private static partial Regex CardRegex();
 	}
 
-	internal Day4b()
+	internal Day04a()
 	{
-		_name = GetType().Name;
+		_name = GetType().Name[..^1];
 	}
 
 	internal override void Run()
@@ -44,8 +43,6 @@ internal partial class Day4b : DayBase
 
 		var cards = data.Select(x => new Card(x)).ToArray();
 
-		int sum = cards.Sum(x => x.CalcSum(cards));
-
-		Console.WriteLine("Day 4b: " + sum);
+		Console.WriteLine("Day 4a: " + cards.Sum(x => x._sum));
 	}
 }

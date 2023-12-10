@@ -1,11 +1,11 @@
 ﻿namespace AdventOfCode2023;
-internal class Day5b : DayBase
+internal class Day05b : DayBase
 {
 	private readonly List<Map> _maps = [];
 
-	internal Day5b()
+	internal Day05b()
 	{
-		_name = GetType().Name;
+		_name = GetType().Name[..^1];
 	}
 
 	internal long Convert(long v)

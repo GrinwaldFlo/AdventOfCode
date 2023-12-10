@@ -1,6 +1,6 @@
 ﻿
 namespace AdventOfCode2023;
-internal class Day8b : DayBase
+internal class Day08a : DayBase
 {
 	internal class Location(string line)
 	{
@@ -13,8 +13,7 @@ internal class Day8b : DayBase
 			return dir == 'R' ? _r : _l;
 		}
 	}
-
-	internal Day8b()
+	internal Day08a()
 	{
 		_name = GetType().Name[..^1];
 	}
@@ -29,17 +28,16 @@ internal class Day8b : DayBase
 
 		long step = 0;
 
-		var curPos = locations.Where(x => x._from.EndsWith('A')).Select(x => x._from).ToList();
+		string curPos = "AAA";
 		int dirPos = 0;
 
-		while (curPos.Any(x => !x.EndsWith('Z')))
+		while (curPos != "ZZZ")
 		{
-			var curLoc = curPos.Select(x => locations.First(y => y._from == x));
-			curPos = curLoc.Select(x => x.Next(directions[dirPos])).ToList();
-			dirPos = (dirPos + 1) % directions.Length;
+			var curLoc = locations.First(x => x._from == curPos);
+			curPos = curLoc.Next(directions[dirPos++ % directions.Length]);
 			step++;
 		}
 
-		Console.WriteLine($"Day 8b: {step}");
+		Console.WriteLine($"Day 8a: {step}");
 	}
 }

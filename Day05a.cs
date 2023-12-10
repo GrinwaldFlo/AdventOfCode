@@ -1,5 +1,5 @@
 ﻿namespace AdventOfCode2023;
-internal class Day5a : DayBase
+internal class Day05a : DayBase
 {
 	internal class Map
 	{
@@ -44,9 +44,9 @@ internal class Day5a : DayBase
 		}
 	}
 
-	internal Day5a()
+	internal Day05a()
 	{
-		_name = GetType().Name;
+		_name = GetType().Name[..^1];
 	}
 
 	internal override void Run()

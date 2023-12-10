@@ -1,5 +1,5 @@
 ﻿namespace AdventOfCode2023;
-internal class Day7b : DayBase
+internal class Day07a : DayBase
 {
 	internal class Card
 	{
@@ -36,40 +36,20 @@ internal class Day7b : DayBase
 		internal long _bid;
 		internal long _value;
 		internal string _strCards;
-		internal int _jocker;
 		public Hand(string val)
 		{
-
 			string[] tmp = val.Split(' ');
 			_strCards = tmp[0];
 			_cards = [.. tmp[0].Select(SignToVal)];
 			_bid = long.Parse(tmp[1]);
-
-			if (_strCards.Contains('J'))
-			{
-				long tmpValue = 0;
-				for (int i = 1; i < 14; i++)
-				{
-					tmpValue = CalcValue(_cards.Select(x => x == 1 ? i : x).ToArray());
-					if (tmpValue > _value)
-					{
-						_jocker = i;
-						_value = tmpValue;
-					}
-				}
-			}
-			else
-			{
-				_value = CalcValue(_cards);
-			}
+			_value = CalcValue();
 		}
 
-		private long CalcValue(int[] cards)
+		private long CalcValue()
 		{
-			var map = cards.OrderByDescending(x => x).GroupBy(x => x).OrderByDescending(x => x.Count()).ToList();
+			var map = _cards.OrderByDescending(x => x).GroupBy(x => x).OrderByDescending(x => x.Count()).ToList();
 
 			long result = 0;
-			// This score is calculated from original score (to have jocker as min points)
 			for (int i = 0; i < _cards.Length; i++)
 			{
 				result += _cards[i] * (long)Math.Pow(100, _cards.Length - i - 1);
@@ -94,10 +74,10 @@ internal class Day7b : DayBase
 		{
 			return sign switch
 			{
-				'A' => 13,
-				'K' => 12,
-				'Q' => 11,
-				'J' => 1,
+				'A' => 14,
+				'K' => 13,
+				'Q' => 12,
+				'J' => 11,
 				'T' => 10,
 				'9' => 9,
 				'8' => 8,
@@ -112,7 +92,7 @@ internal class Day7b : DayBase
 		}
 	}
 
-	internal Day7b()
+	internal Day07a()
 	{
 		_name = GetType().Name[..^1];
 	}
@@ -127,12 +107,11 @@ internal class Day7b : DayBase
 		{
 			for (int j = 0; j < hands[i].Count(); j++)
 			{
-				var hand = hands[i].ToArray()[j];
-				result += hand._bid * (i + 1);
-				Console.WriteLine($"{j} - {hand._strCards} - {hand._value} = {hand._bid} * {i + 1} | Jocker:{hand._jocker}");
+				result += hands[i].ToArray()[j]._bid * (i + 1);
+				Console.WriteLine($"{j} - {hands[i].ToArray()[j]._strCards} - {hands[i].ToArray()[j]._value} = {hands[i].ToArray()[j]._bid} * {i + 1}");
 			}
 		}
 
-		Console.WriteLine($"Day 7b: {result}");
+		Console.WriteLine($"Day 7a: {result}");
 	}
 }

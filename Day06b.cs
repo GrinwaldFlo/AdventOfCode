@@ -1,5 +1,5 @@
 ﻿namespace AdventOfCode2023;
-internal class Day6b : DayBase
+internal class Day06b : DayBase
 {
 	internal class Race
 	{
@@ -23,9 +23,9 @@ internal class Day6b : DayBase
 			return dist;
 		}
 	}
-	internal Day6b()
+	internal Day06b()
 	{
-		_name = GetType().Name;
+		_name = GetType().Name[..^1];
 	}
 
 	internal override void Run()
