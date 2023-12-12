@@ -18,4 +18,6 @@ Console.WriteLine("Advent of Code 2023");
 //new Day8a().Run();
 //new Day8b().Run();
 //new Day9a().Run();
-new Day09b().Run();
+//new Day09b().Run();
+//new Day10a().Run();
+new Day10b().Run();

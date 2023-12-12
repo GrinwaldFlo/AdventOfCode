@@ -7,3 +7,4 @@ using System.Diagnostics.CodeAnalysis;
 
 [assembly: SuppressMessage("Style", "IDE0046:Convert to conditional expression", Justification = "<Pending>", Scope = "member", Target = "~M:AdventOfCode2023.Day07a.Hand.CalcValue~System.Int64")]
 [assembly: SuppressMessage("Style", "IDE0046:Convert to conditional expression", Justification = "<Pending>", Scope = "member", Target = "~M:AdventOfCode2023.Day07b.Hand.CalcValue(System.Int32[])~System.Int64")]
+[assembly: SuppressMessage("Style", "IDE0046:Convert to conditional expression", Justification = "<Pending>", Scope = "member", Target = "~M:AdventOfCode2023.Day10a.Pos.TryGet(System.Int32,System.Int32)~AdventOfCode2023.Day10a.Pos")]
