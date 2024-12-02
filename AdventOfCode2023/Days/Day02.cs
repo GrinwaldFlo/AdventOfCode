@@ -1,6 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace AdventOfCode2023;
+namespace AdventOfCode2023.Days;
+
 internal partial class Day02 : DayBase
 {
 	//Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
@@ -74,7 +75,6 @@ internal partial class Day02 : DayBase
 		}
 	}
 
-	private readonly string[] _n = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
 	internal Day02()
 	{
 		_name = GetType().Name;

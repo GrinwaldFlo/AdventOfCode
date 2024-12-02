@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode2023;
+﻿namespace AdventOfCode2023.Days;
 internal class Day05b : DayBase
 {
 	private readonly List<Map> _maps = [];
@@ -35,9 +35,7 @@ internal class Day05b : DayBase
 			if (string.IsNullOrEmpty(data[0]))
 			{
 				if (buffer.Count != 0)
-				{
 					_maps.Add(new([.. buffer]));
-				}
 				buffer.Clear();
 				data.RemoveAt(0);
 			}

@@ -1,24 +1,19 @@
-﻿namespace AdventOfCode2023;
-internal class Day03b : DayBase
+﻿namespace AdventOfCode2023.Days;
+internal class Day03 : DayBase
 {
-	private readonly List<int> _r = [];
-	private readonly List<List<int>> _s = [];
-
-	internal Day03b()
+	internal Day03()
 	{
-		_name = GetType().Name[..^1];
+		_name = GetType().Name;
 	}
 
 	internal override void Run()
 	{
 		char[][] data = GetData().Select(x => x.ToCharArray()).ToArray();
-		int[][] mask = new int[data.Length][];
-		_r.Add(0);
-		_s.Add([]);
+		char[][] mask = new char[data.Length][];
 
 		for (int i = 0; i < data.Length; i++)
 		{
-			mask[i] = new int[data[i].Length];
+			mask[i] = new char[data[i].Length];
 		}
 
 		for (int i = 0; i < data.Length; i++)
@@ -26,15 +21,13 @@ internal class Day03b : DayBase
 			for (int j = 0; j < data[i].Length; j++)
 			{
 				if (IsSymbol(data[i][j]))
-				{
 					SetMask(mask, i, j);
-				}
 			}
 		}
 
 		int cur = 0;
-		int maskId = 0;
-
+		bool isOk = false;
+		int sum = 0;
 		for (int i = 0; i < data.Length; i++)
 		{
 			for (int j = 0; j < data[i].Length; j++)
@@ -42,57 +35,44 @@ internal class Day03b : DayBase
 				if (char.IsDigit(data[i][j]))
 				{
 					cur = (cur * 10) + data[i][j] - '0';
-					if (mask[i][j] > 0)
-					{
-						maskId = mask[i][j];
-					}
+					if (mask[i][j] == '1')
+						isOk = true;
 				}
 				else
 				{
-					if (cur > 0 && maskId > 0)
-					{
-						_s[maskId].Add(cur);
-					}
+					if (cur > 0 && isOk)
+						sum += cur;
 					cur = 0;
-					maskId = 0;
+					isOk = false;
 				}
 			}
-			if (cur > 0 && maskId > 0)
-			{
-				_s[maskId].Add(cur);
-			}
+			if (cur > 0 && isOk)
+				sum += cur;
 			cur = 0;
-			maskId = 0;
+			isOk = false;
 		}
-
-		long sum = _s.Where(x => x.Count == 2).Select(x => x[0] * x[1]).Sum();
-
 		Console.WriteLine($"Day3 sum:{sum}");
 	}
 
 	private static bool IsSymbol(char value)
 	{
-		return value == '*';
+		return !char.IsNumber(value) && value != '.';
 	}
 
-	private void SetMask(int[][] mask, int x, int y)
+	private static void SetMask(char[][] mask, int x, int y)
 	{
-		_r.Add(0);
-		_s.Add([]);
 		for (int i = x - 1; i < x + 2; i++)
 		{
 			for (int j = y - 1; j < y + 2; j++)
 			{
-				SetValue(mask, i, j, _r.Count - 1);
+				SetValue(mask, i, j, '1');
 			}
 		}
 	}
 
-	private static void SetValue(int[][] mask, int x, int y, int value)
+	private static void SetValue(char[][] mask, int x, int y, char value)
 	{
 		if (x >= 0 && y >= 0 && x < mask.Length && y < mask[0].Length)
-		{
 			mask[x][y] = value;
-		}
 	}
 }

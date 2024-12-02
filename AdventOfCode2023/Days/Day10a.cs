@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace AdventOfCode2023;
+namespace AdventOfCode2023.Days;
 internal class Day10a : DayBase
 {
 	internal Day10a()

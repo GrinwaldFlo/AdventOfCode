@@ -1,9 +1,9 @@
-﻿// See https://aka.ms/new-console-template for more information
-using AdventOfCode2023;
+﻿using AdventOfCode2024.Days;
 
-Console.WriteLine("Advent of Code 2023");
+Console.WriteLine("Advent of Code 2024");
 
-//new Day1().Run();
+new Day01a().Run();
+new Day01b().Run();
 //new Day2().Run();
 //new Day3().Run();
 //new Day3b().Run();
@@ -20,4 +20,4 @@ Console.WriteLine("Advent of Code 2023");
 //new Day9a().Run();
 //new Day09b().Run();
 //new Day10a().Run();
-new Day10b().Run();
+//new Day10b().Run();

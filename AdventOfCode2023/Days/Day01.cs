@@ -1,4 +1,5 @@
-﻿namespace AdventOfCode2023;
+﻿namespace AdventOfCode2023.Days;
+
 internal class Day01 : DayBase
 {
 	private readonly string[] _n = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];

@@ -1,6 +1,5 @@
-﻿
-namespace AdventOfCode2023;
-internal class Day09a : DayBase
+﻿namespace AdventOfCode2023.Days;
+internal class Day09b : DayBase
 {
 	internal class Data
 	{
@@ -21,9 +20,9 @@ internal class Day09a : DayBase
 
 			for (int i = _derivatives.Count - 2; i >= 0; i--)
 			{
-				_derivatives[i]._next = _derivatives[i + 1]._next + _derivatives[i]._d.Last();
+				_derivatives[i]._previous = _derivatives[i]._d.First() - _derivatives[i + 1]._previous;
 			}
-			_prediction = _data.Last() + _derivatives[0]._next;
+			_prediction = _data.First() - _derivatives[0]._previous;
 		}
 	}
 
@@ -31,7 +30,7 @@ internal class Day09a : DayBase
 	{
 		internal bool _isLast;
 		internal long[] _d;
-		internal long _next;
+		internal long _previous;
 		internal Derivative(long[] data)
 		{
 			_d = new long[data.Length - 1];
@@ -43,14 +42,14 @@ internal class Day09a : DayBase
 		}
 	}
 
-	internal Day09a()
+	internal Day09b()
 	{
 		_name = GetType().Name[..^1];
 	}
 
 	internal override void Run()
 	{
-		var data = GetData().Select(x => new Data(x)).ToList();
+		List<Data> data = GetData().Select(x => new Data(x)).ToList();
 
 		long sum = data.Sum(x => x._prediction);
 		Console.WriteLine($"Day 9a: {sum}");

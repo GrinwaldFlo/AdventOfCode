@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode2023;
+﻿namespace AdventOfCode2023.Days;
 internal class Day06a : DayBase
 {
 	internal class Race

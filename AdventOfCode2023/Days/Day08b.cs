@@ -1,5 +1,4 @@
-﻿
-namespace AdventOfCode2023;
+﻿namespace AdventOfCode2023.Days;
 internal class Day08b : DayBase
 {
 	internal class Location(string line)
@@ -25,11 +24,11 @@ internal class Day08b : DayBase
 		string directions = data[0];
 		data.RemoveAt(0);
 		data.RemoveAt(0);
-		var locations = data.Select(x => new Location(x)).ToList();
+		List<Location> locations = data.Select(x => new Location(x)).ToList();
 
 		long step = 0;
 
-		var curPos = locations.Where(x => x._from.EndsWith('A')).Select(x => x._from).ToList();
+		List<string> curPos = locations.Where(x => x._from.EndsWith('A')).Select(x => x._from).ToList();
 		int dirPos = 0;
 
 		while (curPos.Any(x => !x.EndsWith('Z')))
